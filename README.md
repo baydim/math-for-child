@@ -4,7 +4,7 @@ A new Flutter project.
 
 # ui
 
-![alt text](https://github.com/baydim/math-for-child/assets/q.png)
+![alt text](https://github.com/baydim/math-for-child/blob/master/assets/q.png)
 
 
 ## Getting Started
