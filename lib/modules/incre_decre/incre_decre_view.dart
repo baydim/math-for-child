@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounce/flutter_bounce.dart';
 import 'package:get/get.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class IncreDecreView extends StatefulWidget {
+  const IncreDecreView({super.key, this.isIncre = false});
+  final bool? isIncre;
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<IncreDecreView> createState() => _IncreDecreViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _IncreDecreViewState extends State<IncreDecreView> {
   int page = 0;
   int first = 0;
   int last = 0;
@@ -22,12 +23,18 @@ class _HomeViewState extends State<HomeView> {
 
   generateNumber() {
     setState(() {
+      page = -1;
       buttonChoices.clear();
       first = Random().nextInt(20);
       last = Random().nextInt(20);
-      result = first + last;
+      if (widget.isIncre!) {
+        result = first + last;
+      } else {
+        result = first - last;
+      }
+
       for (var i = 0; i < 7; i++) {
-        buttonChoices.add(Random().nextInt(100));
+        buttonChoices.add(Random().nextInt(40));
       }
       buttonChoices.add(result);
       buttonChoices.shuffle();
@@ -50,12 +57,12 @@ class _HomeViewState extends State<HomeView> {
     return Align(
       alignment: Alignment.topCenter,
       child: ConfettiWidget(
-        maximumSize: Size(30, 30),
+        maximumSize: const Size(50, 50),
         shouldLoop: false,
         confettiController: controller,
         // blastDirection: blastDirection,
         blastDirectionality: BlastDirectionality.explosive,
-        numberOfParticles: 20,
+        numberOfParticles: 10,
 
         colors: [
           Colors.green.shade900,
@@ -92,7 +99,7 @@ class _HomeViewState extends State<HomeView> {
           Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
-                title: const Text('Hitung Jendong'),
+                title: Text(widget.isIncre! ? "Pertambahan" : "Pengurangan"),
                 backgroundColor: Colors.blue,
                 centerTitle: true,
                 actions: [
@@ -109,14 +116,14 @@ class _HomeViewState extends State<HomeView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(),
+                    const SizedBox(),
                     Flexible(
                       flex: 1,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AnimatedContainer(
-                            duration: Duration(milliseconds: 100),
+                            duration: const Duration(milliseconds: 100),
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
@@ -126,27 +133,27 @@ class _HomeViewState extends State<HomeView> {
                             child: Center(
                               child: Text(
                                 first.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.blue,
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
-                            "+",
-                            style: TextStyle(
+                            widget.isIncre! ? '+' : '-',
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 40,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           AnimatedContainer(
-                            duration: Duration(milliseconds: 100),
+                            duration: const Duration(milliseconds: 100),
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
@@ -156,7 +163,7 @@ class _HomeViewState extends State<HomeView> {
                             child: Center(
                               child: Text(
                                 last.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.blue,
                                 ),
                               ),
@@ -186,14 +193,14 @@ class _HomeViewState extends State<HomeView> {
                                       Get.rawSnackbar(
                                         message: "Jawaban Salah",
                                         backgroundColor: Colors.red,
-                                        padding: EdgeInsets.all(20),
+                                        padding: const EdgeInsets.all(20),
                                       );
-                                      generateNumber();
+                                      // generateNumber();
                                     }
                                   });
                                 },
                                 child: AnimatedContainer(
-                                  duration: Duration(milliseconds: 100),
+                                  duration: const Duration(milliseconds: 100),
                                   width: 70,
                                   height: 70,
                                   decoration: BoxDecoration(

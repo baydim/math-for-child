@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hitung_jendong/modules/home/home_view.dart';
+import 'package:hitung_jendong/modules/dashboard/dashboard_view.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -17,8 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true,
+        textTheme: Theme.of(context).textTheme.apply(
+              fontSizeFactor: 1.1,
+              fontSizeDelta: 2.0,
+            ),
       ),
-      home: const HomeView(),
+      home: const DashboardView(),
     );
   }
 }
